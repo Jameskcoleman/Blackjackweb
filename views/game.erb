@@ -1,0 +1,51 @@
+<div class="well">
+The dealer is holding:
+</br>
+<% session[:dealer_hand].each_with_index do |card, i| %>
+  <% if session[:turn] != "dealer" && i == 0 %>
+    <img src="/images/cards/cover.jpg" class="card_image">
+  <% else %>
+    <%= card_image(card) %>
+  <% end %>
+<% end %>
+</br>
+<% if session[:turn] == "dealer" %>
+  The value of the dealer's cards is <%= session[:dealer_hand_value] %>.
+  <% end %>
+</div>
+<div class="well">
+<%= session[:player_name] %> is holding:
+</br>
+  <% session[:player_hand].each do |card| %>
+  <%= card_image(card) %>
+  <% end %>
+</br>
+The value of <%= session[:player_name] %>'s cards is: <%= session[:player_hand_value] %>.
+</div>
+
+<p>
+<% if @show_buttons %>
+  <h5> What would you like to do? </h5>
+    <form id="hit_form" action="/game/player/hit" method='post'>
+    <input type="submit" class="btn btn-success" value="Hit" />
+  </form>
+  <form id="stay_form" action="/game/player/stay" method='post'>
+    <input type="submit" class="btn btn-warning" value="Stay" />
+  </form>
+<% end %>
+</p>
+
+<% if @show_dealer_hit_button %>
+<h5> The dealer will hit. </h5>
+<form action='/game/dealer/hit' method='post'>
+  <input type='submit' class='btn btn-primary' value="See dealer's next card">
+</form>
+<% end %>
+
+<% if @play_again %>
+  <p>
+    <strong>Play again?</strong>
+    <a href="/game" class="btn btn-primary">Yes</a>
+    <a href="/game_over" class="btn"> No</a>
+  </p>
+<% end %>

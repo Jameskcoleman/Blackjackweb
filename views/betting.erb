@@ -1,0 +1,13 @@
+<h2>Betting</h2>
+
+<h4><%= session[:user_name] %> has $<%= session[:wallet] %>. </h4>
+
+<form action='/current_bet' method='post'>
+  <fieldset>
+    <legend>How much would <%= session[:user_name] %> like to bet?</legend>
+    <label>Bet amount:</label>
+    <input type="text" name="currentbet" placeholder="Number">
+    <br>
+    <button type="submit" class="btn">Submit</button>
+  </fieldset>
+</form>
